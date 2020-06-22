@@ -1,0 +1,11 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+*.Rproj
+data/btw13_wahlbewerber.pdf
+data/btw09_wahlbewerber.pdf
+data/btw05_wahlbewerber.csv
+data/btw_kerg.zip
+data/btw_kerg/*
+data/backup/*
