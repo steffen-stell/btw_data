@@ -131,10 +131,11 @@ sdn <-
 # Party name synonyms
 pns <- 
   read_csv2("data/party_names.csv") %>% 
-  bind_cols(.[1:3]) %>% 
+  bind_cols(.[1:3]) %>%  
   gather("key", "alt_names", -(1:3)) %>% 
   select(-key) %>% 
-  filter(!is.na(alt_names))
+  filter(!is.na(alt_names)) %>% 
+  set_names(names(.) %>% str_remove("\\.\\.\\.\\d$"))
 
 
 btw_returns <- bind_rows(btw1, btw3) %>%
@@ -160,7 +161,8 @@ btw_returns <- bind_rows(btw1, btw3) %>%
          vote_type = ifelse(party %in% c("Wahlberechtigte", "Wähler"), "", vote_type)
          ) %>% 
   left_join(pns, by = c("party" = "alt_names")) %>% 
-  select(year, district_no, district_name, state, party_name_short, party_wiki_id, vote_type, votes)
+  select(year, district_no, district_name, state, party_name_short, 
+         party_wiki_id, vote_type, votes)
 
 # Export
 write_rds(btw_returns, "btw_returns.rds", compress = "gz")
